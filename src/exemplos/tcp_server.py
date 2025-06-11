@@ -10,17 +10,17 @@ IP = '0.0.0.0'
 PORT = 8888
 
 def main():
-    serv_socket = socket(AF_INET, SOCK_STREAM)
-    serv_socket.bind((IP, PORT))
-    serv_socket.listen()
+    with socket(AF_INET, SOCK_STREAM) as serv_socket:
+        serv_socket.bind((IP, PORT))
+        serv_socket.listen()
 
-    print(f"[+] Listening on IP {IP} and PORT {PORT}")
+        print(f"[+] Listening on IP {IP} and PORT {PORT}")
 
-    while True:
-        client_socket, client_addr = serv_socket.accept()
-        print(f"[+] Accepted connection from ({client_addr[0]}, {client_socket[1]})")
-        client_thread = threading.Thread(target=handle_client, args=(client_socket,))
-        client_thread.start()
+        while True:
+            client_socket, client_addr = serv_socket.accept()
+            print(f"[+] Accepted connection from ({client_addr[0]}, {client_socket[1]})")
+            client_thread = threading.Thread(target=handle_client, args=(client_socket,))
+            client_thread.start()
 
 def handle_client(client_socket: socket):
     with client_socket:
