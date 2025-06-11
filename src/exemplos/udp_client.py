@@ -5,13 +5,13 @@ Exemplo de um cliente UDP.
 from socket import socket, AF_INET, SOCK_DGRAM
 
 target_host = "127.0.0.1"
-target_port = 8080            # porto de acesso HTTP
+target_port = 8080            # porto de acesso UDP
 
 # Criar objeto socket
-# AF_INET -> Internet, IPV4 | SOCK_DGRAM -> Orientado ao byte, ou seja, TCP
+# AF_INET -> Internet, IPV4 | SOCK_DGRAM -> UDP (envia grupos de bytes)
 client_socket = socket(AF_INET, SOCK_DGRAM)
 
-# Enviar pedido/método GET
+# Enviar dados
 request = b'XYZ123'
 client_socket.sendto(request, (target_host, target_port))
 
